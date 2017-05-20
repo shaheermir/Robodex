@@ -4,17 +4,17 @@ import CardList from '../Components/CardList'
 import SearchBox from '../Components/SearchBox'
 import Scroll from '../Components/Scroll'
 import { apiCall } from '../api/api'
+import { connect } from 'react-redux'
+import { setSearchTerm } from '../actions'
+import PropTypes from 'prop-types'
 
 class App extends Component {
   constructor () {
     super()
     this.state = {
       robots: [],
-      searchTerm: '',
       isPending: true
     }
-
-    this.onSearchChange = this.onSearchChange.bind(this)
   }
 
   componentDidMount () {
@@ -23,14 +23,10 @@ class App extends Component {
     )
   }
 
-  onSearchChange (e) {
-    this.setState({
-      searchTerm: e.target.value
-    })
-  }
-
   render () {
-    const { searchTerm, robots, isPending } = this.state
+    const { robots, isPending } = this.state
+    const { searchTerm, onSearchChange } = this.props
+
     const filteredRobots = robots.filter(robot => {
       return robot.name.toLowerCase().includes(searchTerm.toLowerCase())
     })
@@ -38,7 +34,7 @@ class App extends Component {
     return (
       <div className='tc'>
         <h1>RoboDex</h1>
-        <SearchBox onSearchChange={this.onSearchChange} />
+        <SearchBox onSearchChange={onSearchChange} />
         <Scroll>
           {isPending
             ? <h1>Loading...</h1>
@@ -49,4 +45,17 @@ class App extends Component {
   }
 }
 
-export default App
+App.propTypes = {
+  searchTerm: PropTypes.string,
+  onSearchChange: PropTypes.func
+}
+
+const mapStateToProps = state => ({
+  searchTerm: state.searchTerm
+})
+
+const mapDispatchToProps = dispatch => ({
+  onSearchChange: event => dispatch(setSearchTerm(event.target.value))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
