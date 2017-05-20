@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import 'tachyons'
-import CardList from './CardList'
-import SearchBox from './SearchBox'
-import Scroll from './Scroll'
+import CardList from '../Components/CardList'
+import SearchBox from '../Components/SearchBox'
+import Scroll from '../Components/Scroll'
+import { apiCall } from '../api/api'
 
 class App extends Component {
   constructor () {
@@ -17,11 +18,9 @@ class App extends Component {
   }
 
   componentDidMount () {
-    setTimeout(() => {
-      fetch('https://jsonplaceholder.typicode.com/users')
-        .then(response => response.json())
-        .then(data => this.setState({ robots: data, isPending: false }))
-    }, 3000)
+    apiCall('https://jsonplaceholder.typicode.com/users').then(data =>
+      this.setState({ robots: data, isPending: false })
+    )
   }
 
   onSearchChange (e) {
