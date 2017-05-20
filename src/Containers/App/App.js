@@ -1,11 +1,10 @@
-import 'tachyons'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import CardList from '../Components/CardList'
-import SearchBox from '../Components/SearchBox'
-import Scroll from '../Components/Scroll'
+import CardList from '../../Components/CardList'
+import SearchBox from '../../Components/SearchBox'
+import Scroll from '../../Components/Scroll'
 import { connect } from 'react-redux'
-import { setSearchTerm, requestRobots } from '../actions'
+import { setSearchTerm, requestRobots } from '../../actions'
 
 class App extends Component {
   componentDidMount () {
