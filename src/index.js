@@ -1,25 +1,24 @@
+import 'tachyons'
+import './index.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './Containers/App'
-import './index.css'
-import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import { searchReducer, robotsReducer } from './reducers'
-import { createLogger } from 'redux-logger'
-import ReduxThunk from 'redux-thunk'
+import App from './Containers/App/App'
+import Profile from './Containers/Profile/Profile'
+import createStore from './store'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
-const logger = createLogger()
-
-const rootReducer = combineReducers({
-  search: searchReducer,
-  robots: robotsReducer
-})
-
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk, logger))
+const store = createStore()
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <Switch>
+        <Route path='/' exact component={App} />
+        <Route path='/profile/:id' component={Profile} />
+        <Redirect to='/' />
+      </Switch>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 )
