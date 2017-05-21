@@ -9,12 +9,12 @@ const rootReducer = combineReducers({
   robots: robotsReducer
 })
 
-const createAppStore = () => {
+const createAppStore = (initialState) => {
   const withLogger = process.env.NODE_ENV === 'development'
   const middleware = withLogger
     ? applyMiddleware(ReduxThunk, logger)
     : applyMiddleware(ReduxThunk)
-  return createStore(rootReducer, middleware)
+  return createStore(rootReducer, initialState, middleware)
 }
 
 export default createAppStore

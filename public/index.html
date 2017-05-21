@@ -16,7 +16,7 @@
     <title>React App</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><span id="SSR_CONTENT" /></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -27,5 +27,10 @@
       To begin the development, run `npm start`.
       To create a production bundle, use `npm run build`.
     -->
+    <script type="text/javascript">
+      try {
+        window.INITIAL_STATE = INITIAL_STATE_JSON
+      } catch(e) {}
+    </script>
   </body>
 </html>

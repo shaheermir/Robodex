@@ -7,8 +7,12 @@ import { connect } from 'react-redux'
 import { setSearchTerm, requestRobots } from '../../actions'
 
 class App extends Component {
-  componentDidMount () {
-    this.props.onRequestRobots()
+  componentWillMount () {
+    if (this.props.robots.length === 0) {
+      this.props.onRequestRobots()
+    } else {
+      console.log('Robots are already loaded.')
+    }
   }
 
   render () {
