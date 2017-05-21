@@ -13,6 +13,7 @@ const App = require('./Containers/App/App').default
 const createStore = require('./store').default
 const express = require('express')
 const fs = require('fs')
+const compression = require('compression')
 
 const initialContent = fs.readFileSync('./build/index.html', 'utf-8')
 
@@ -53,6 +54,7 @@ const PORT = process.env.PORT || 3000
 
 const serveContent = (req, res) => res.send(markup)
 
+app.use(compression())
 app.get('/', serveContent)
 app.get('/index.html', serveContent)
 
